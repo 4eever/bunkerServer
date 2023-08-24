@@ -1,5 +1,3 @@
-use db_a9cd6a_ravennn;
-
 begin transaction;
 create table lobbies(
 uid_lobby varchar(20) not null primary key,
