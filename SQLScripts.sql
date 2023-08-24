@@ -29,6 +29,7 @@ CREATE TABLE cards (
 );
 COMMIT TRANSACTION;
 
+begin transaction;
 CREATE TABLE IsOpen (
     uid_user varchar(20) PRIMARY KEY,
     card11 bit,
@@ -39,6 +40,7 @@ CREATE TABLE IsOpen (
     card66 bit,
     CONSTRAINT FK_cards_is_open_users FOREIGN KEY (uid_user) REFERENCES users (uid_user)
 );
+commit transaction;
 
 
 select * from lobbies;
