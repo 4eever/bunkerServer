@@ -59,7 +59,7 @@ namespace bunkerServer.Controllers
         }
 
         [HttpGet("revealcard")]
-        public async Task<ActionResult> RevealCard(string uid_user, int choice)
+        public async Task<ActionResult> RevealCard(string uid_user, int choice) //Метод раскрытия карты
         {
             User user = await _userRepository.GetCurrentUser(uid_user);
 
@@ -95,7 +95,7 @@ namespace bunkerServer.Controllers
             return Ok();
         }
 
-        [HttpPost("vote")]
+        [HttpPost("vote")] //Метод отправки голоса
         public async Task<ActionResult> Vote(UserVoteDTO userVote)
         {
             try
@@ -109,7 +109,7 @@ namespace bunkerServer.Controllers
             }
         }
 
-        [HttpGet("getResult")]
+        [HttpGet("getResult")] //Метод голосования
         public async Task<ActionResult<UserVoteDTO>> GetResult(string uid_lobby)
         {
             // Ждем 30 секунд
