@@ -118,11 +118,11 @@ namespace bunkerServer
 
                     if (rowsAffected > 0)
                     {
-                        Console.WriteLine("Data inserted into is_open table successfully.");
+                        Console.WriteLine("Data inserted into IsOpen table successfully.");
                     }
                     else
                     {
-                        Console.WriteLine("Failed to insert data into is_open table.");
+                        Console.WriteLine("Failed to insert data into IsOpen table.");
                     }
                 }
             }
