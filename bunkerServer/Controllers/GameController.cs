@@ -47,16 +47,12 @@ namespace bunkerServer.Controllers
             // Генерация card2
             userCards.Card2 = random.Next(1, 50);
 
-            // Генерация card3
             userCards.Card3 = random.Next(1, 183);
 
-            // Генерация card4
             userCards.Card4 = random.Next(1, 61);
 
-            // Генерация card5
             userCards.Card5 = random.Next(1, 118);
 
-            // Генерация card6
             userCards.Card6 = random.Next(1, 305);
 
             return userCards;
@@ -93,7 +89,7 @@ namespace bunkerServer.Controllers
                     return BadRequest("Invalid choice");
             }
 
-            // Сохраните выбор в таблице is_open
+            // Сохраняем выбора в таблице is_ope
             await _gameRepository.UpdateIsOpen(isOpenDTO);
 
             return Ok();
