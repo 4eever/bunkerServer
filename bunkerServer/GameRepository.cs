@@ -61,10 +61,10 @@ namespace bunkerServer
                     command.Parameters.AddWithValue("@Uid_User", isOpenDTO.Uid_User);
                     command.Parameters.AddWithValue("@Card11", isOpenDTO.Card11);
                     command.Parameters.AddWithValue("@Card22", isOpenDTO.Card22);
-                    command.Parameters.AddWithValue("@Card33", isOpenDTO.Cars33); // Corrected parameter name
-                    command.Parameters.AddWithValue("@Card44", isOpenDTO.Cars44); // Corrected parameter name
-                    command.Parameters.AddWithValue("@Card55", isOpenDTO.Cars55); // Corrected parameter name
-                    command.Parameters.AddWithValue("@Card66", isOpenDTO.Cars66); // Corrected parameter name
+                    command.Parameters.AddWithValue("@Card33", isOpenDTO.Cars33);
+                    command.Parameters.AddWithValue("@Card44", isOpenDTO.Cars44);
+                    command.Parameters.AddWithValue("@Card55", isOpenDTO.Cars55);
+                    command.Parameters.AddWithValue("@Card66", isOpenDTO.Cars66);
 
 
                     int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -123,7 +123,7 @@ namespace bunkerServer
 
                 using (SqlTransaction transaction = connection.BeginTransaction())
                 {
-                    // Удаляем записи из таблицы is_open
+                    // Удаляем записи из таблицы is_ope
                     string deleteIsOpenQuery = @"
                 DELETE FROM IsOpen
                 WHERE uid_user = @mostVotedUser";
