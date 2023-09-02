@@ -7,31 +7,28 @@ namespace bunkerServer
     {
         public async Task<User> AddUser(UserDTO userDTO)
         {
-            string connectionString = "";
             Lobby lobby = new Lobby(userDTO.Uid_lobby);
             User user = new User(userDTO.Uid_user, userDTO.Uid_lobby, userDTO.User_name, 0, 0, 0, 0, 0, 0, 0, "", 0);
             if (user != null)
             {
-                DbFunctions.AddToLobbies(connectionString, lobby.Uid_lobby);
-                DbFunctions.AddToUsers(connectionString, user.Uid_user, user.Uid_lobby, user.User_name, user.Avatar, user.Vote, user.Choice);
-                DbFunctions.AddToCards(connectionString, user.Uid_user, user.Card1, user.Card2, user.Card3, user.Card4, user.Card5, user.Card6);
-                DbFunctions.AddToIsOpen(connectionString, user.Uid_user, false, false, false, false, false, false);
+                DbFunctions.AddToLobbies(DbFunctions.connectionString, lobby.Uid_lobby);
+                DbFunctions.AddToUsers(DbFunctions.connectionString, user.Uid_user, user.Uid_lobby, user.User_name, user.Avatar, user.Vote, user.Choice);
+                DbFunctions.AddToCards(DbFunctions.connectionString, user.Uid_user, user.Card1, user.Card2, user.Card3, user.Card4, user.Card5, user.Card6);
+                DbFunctions.AddToIsOpen(DbFunctions.connectionString, user.Uid_user, false, false, false, false, false, false);
             }
             return user;
         }
 
         public async Task<User> GetCurrentUser(string uid_user)
         {
-            string connectionString = "";
-            User user = DbFunctions.GetUserByUidUser(connectionString, uid_user);
+            User user = DbFunctions.GetUserByUidUser(DbFunctions.connectionString, uid_user);
             return user;
         }
 
         public async Task<bool> HasUsersWithLobby(string uidLobby, User user)
         {
-            string connectionString = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 
@@ -44,9 +41,9 @@ namespace bunkerServer
 
                     if (userCount > 0)
                     {
-                        DbFunctions.AddToUsers(connectionString, user.Uid_user, user.Uid_lobby, user.User_name, user.Avatar, user.Vote, user.Choice);
-                        DbFunctions.AddToCards(connectionString, user.Uid_user, user.Card1, user.Card2, user.Card3, user.Card4, user.Card5, user.Card6);
-                        DbFunctions.AddToIsOpen(connectionString, user.Uid_user, false, false, false, false, false, false);
+                        DbFunctions.AddToUsers(DbFunctions.connectionString, user.Uid_user, user.Uid_lobby, user.User_name, user.Avatar, user.Vote, user.Choice);
+                        DbFunctions.AddToCards(DbFunctions.connectionString, user.Uid_user, user.Card1, user.Card2, user.Card3, user.Card4, user.Card5, user.Card6);
+                        DbFunctions.AddToIsOpen(DbFunctions.connectionString, user.Uid_user, false, false, false, false, false, false);
 
                     }
                     return userCount > 0;
@@ -56,9 +53,8 @@ namespace bunkerServer
 
         public async Task<List<User>> GetUsersByLobby(string uidLobby)
         {
-            string connectionString = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 
@@ -100,9 +96,8 @@ namespace bunkerServer
 
         public async Task<UserCardsDTO> GetUserCards(string uidUser)
         {
-            string connectionString = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 

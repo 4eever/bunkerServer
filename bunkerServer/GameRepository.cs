@@ -8,8 +8,7 @@ namespace bunkerServer
         public async Task UpdateUserCardsInDatabase(string uidUser, UserCardsDTO userCards)
         {
 
-            string connectionString = "";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 
@@ -40,9 +39,8 @@ namespace bunkerServer
 
         public async Task UpdateIsOpen(IsOpenDTO isOpenDTO)
             {
-            string connectionString = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 
@@ -61,10 +59,10 @@ namespace bunkerServer
                     command.Parameters.AddWithValue("@Uid_User", isOpenDTO.Uid_User);
                     command.Parameters.AddWithValue("@Card11", isOpenDTO.Card11);
                     command.Parameters.AddWithValue("@Card22", isOpenDTO.Card22);
-                    command.Parameters.AddWithValue("@Card33", isOpenDTO.Cars33); // Corrected parameter name
-                    command.Parameters.AddWithValue("@Card44", isOpenDTO.Cars44); // Corrected parameter name
-                    command.Parameters.AddWithValue("@Card55", isOpenDTO.Cars55); // Corrected parameter name
-                    command.Parameters.AddWithValue("@Card66", isOpenDTO.Cars66); // Corrected parameter name
+                    command.Parameters.AddWithValue("@Card33", isOpenDTO.Cars33);
+                    command.Parameters.AddWithValue("@Card44", isOpenDTO.Cars44);
+                    command.Parameters.AddWithValue("@Card55", isOpenDTO.Cars55);
+                    command.Parameters.AddWithValue("@Card66", isOpenDTO.Cars66);
 
 
                     int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -83,9 +81,8 @@ namespace bunkerServer
 
         public async Task SaveVote(UserVoteDTO userVote)
         {
-            string connectionString = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 
@@ -115,9 +112,8 @@ namespace bunkerServer
 
         public async Task UpdateVotesAndRemoveUser(string uidLobby, string mostVotedUser)
         {
-            string connectionString = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 
@@ -176,9 +172,8 @@ namespace bunkerServer
 
         public async Task<List<UserVoteDTO>> GetVotesByLobby(string uidLobby)
         {
-            string connectionString = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(DbFunctions.connectionString))
             {
                 await connection.OpenAsync();
 

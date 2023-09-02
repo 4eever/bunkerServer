@@ -5,8 +5,10 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace bunkerServer
 {
-    public class DbFunctions
+    public static class DbFunctions
     {
+        public const string connectionString = "Data Source=sql6030.site4now.net;Initial Catalog=db_a9cd6a_ravennn;Persist Security Info=True;User ID=db_a9cd6a_ravennn_admin;Password=Pikolaaa123";
+
         public static void AddToUsers(string connectionString, string uid_User, string uid_Lobby, string user_Name, int avatar, string vote, int choice)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -171,9 +173,8 @@ namespace bunkerServer
             }
         }
 
-        public async Task UpdateIsOpen(IsOpenDTO isOpenDTO)
+        public static async Task UpdateIsOpen(IsOpenDTO isOpenDTO)
         {
-            string connectionString = "";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

@@ -18,14 +18,14 @@ namespace bunkerServer.Controllers
         }
 
 
-        [HttpGet("start")]
+        [HttpPost("start")]
         public async Task<ActionResult> StartGame([FromQuery] string lobbyName)//метод заупуска игры
         {
             List<User> users = await _userRepository.GetUsersByLobby(lobbyName);
 
             foreach (User user in users)
             {
-                UserCardsDTO userCards = GenerateRandomCards(); // Генерация карт для пользователя
+                UserCardsDTO userCards = GenerateRandomCards();
 
                 await _gameRepository.UpdateUserCardsInDatabase(user.Uid_user, userCards);
             }
@@ -38,31 +38,25 @@ namespace bunkerServer.Controllers
             UserCardsDTO userCards = new UserCardsDTO();
             Random random = new Random();
 
-            // Генерация card1
             int card1Part1 = random.Next(18, 100);
             int card1Part2 = random.Next(2);
             int card1 = card1Part1 * 10 + card1Part2;
             userCards.Card1 = card1;
 
-            // Генерация card2
             userCards.Card2 = random.Next(1, 50);
 
-            // Генерация card3
             userCards.Card3 = random.Next(1, 183);
 
-            // Генерация card4
             userCards.Card4 = random.Next(1, 61);
 
-            // Генерация card5
             userCards.Card5 = random.Next(1, 118);
 
-            // Генерация card6
             userCards.Card6 = random.Next(1, 305);
 
             return userCards;
         }
 
-        [HttpGet("revealcard")]
+        [HttpGet("revealcard")]////////////////////////////////////////////////////
         public async Task<ActionResult> RevealCard(string uid_user, int choice)
         {
             User user = await _userRepository.GetCurrentUser(uid_user);
@@ -93,7 +87,6 @@ namespace bunkerServer.Controllers
                     return BadRequest("Invalid choice");
             }
 
-            // Сохраните выбор в таблице is_open
             await _gameRepository.UpdateIsOpen(isOpenDTO);
 
             return Ok();
@@ -148,7 +141,6 @@ namespace bunkerServer.Controllers
             // Возвращаем пользователя с максимальным голосом
             return votes.FirstOrDefault(vote => vote.Uid_user == mostVotedUser);
         }
-
 
 
 

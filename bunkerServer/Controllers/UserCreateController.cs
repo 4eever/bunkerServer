@@ -1,4 +1,5 @@
 ﻿using bunkerServer.DTOs;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,6 @@ namespace bunkerServer.Controllers
         {
             _userRepository = userRepository;
         }
-
         [HttpPost]
         public async Task<ActionResult> PostUser([FromBody] UserDTO userDTO)//Метод создания user и lobby
         {
@@ -28,7 +28,7 @@ namespace bunkerServer.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = user.Uid_user }, user);
         }
 
-        [HttpGet]
+        [HttpGet("uid_user")]
         public async Task<ActionResult> GetUser([FromQuery] string uid_user)
         {
             User currentUser = await _userRepository.GetCurrentUser(uid_user);
