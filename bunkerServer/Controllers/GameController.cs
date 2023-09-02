@@ -56,7 +56,7 @@ namespace bunkerServer.Controllers
             return userCards;
         }
 
-        [HttpGet("revealcard")]////////////////////////////////////////////////////
+        [HttpGet("revealcard")]
         public async Task<ActionResult> RevealCard(string uid_user, int choice)
         {
             User user = await _userRepository.GetCurrentUser(uid_user);
@@ -87,12 +87,13 @@ namespace bunkerServer.Controllers
                     return BadRequest("Invalid choice");
             }
 
+            // Сохраняем выбора в таблице is_ope
             await _gameRepository.UpdateIsOpen(isOpenDTO);
 
             return Ok();
         }
 
-        [HttpPost("vote")]
+        [HttpPost("vote")] //Метод отправки голоса
         public async Task<ActionResult> Vote(UserVoteDTO userVote)
         {
             try
@@ -106,7 +107,7 @@ namespace bunkerServer.Controllers
             }
         }
 
-        [HttpGet("getResult")]
+        [HttpGet("getResult")] //Метод голосования
         public async Task<ActionResult<UserVoteDTO>> GetResult(string uid_lobby)
         {
             // Ждем 30 секунд

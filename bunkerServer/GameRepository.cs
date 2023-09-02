@@ -119,7 +119,7 @@ namespace bunkerServer
 
                 using (SqlTransaction transaction = connection.BeginTransaction())
                 {
-                    // Удаляем записи из таблицы is_open
+                    // Удаляем записи из таблицы is_ope
                     string deleteIsOpenQuery = @"
                 DELETE FROM IsOpen
                 WHERE uid_user = @mostVotedUser";
