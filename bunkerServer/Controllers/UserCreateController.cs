@@ -28,8 +28,8 @@ namespace bunkerServer.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = user.Uid_user }, user);
         }
 
-        [HttpGet("uid_user")]
-        public async Task<ActionResult> GetUser([FromQuery] string uid_user)
+        [HttpGet("uid_user/{uid_user}")]
+        public async Task<ActionResult> GetUser(string uid_user)
         {
             User currentUser = await _userRepository.GetCurrentUser(uid_user);
             return Ok(currentUser);
@@ -57,15 +57,15 @@ namespace bunkerServer.Controllers
             }
         }
 
-        [HttpGet("get-by-lobby")]//Метод получения всех user с заданным uid_lobby
-        public async Task<ActionResult<List<User>>> GetUsersByLobby([FromQuery] string uid_lobby)
+        [HttpGet("get-by-lobby/{uid_lobby}")]//Метод получения всех user с заданным uid_lobby
+        public async Task<ActionResult<List<User>>> GetUsersByLobby(string uid_lobby)
         {
             var users = await _userRepository.GetUsersByLobby(uid_lobby);
             return Ok(users);
         }
 
-        [HttpGet("get-cards")]//Метод получения информации о своих картах user
-        public async Task<ActionResult<UserCardsDTO>> GetUserCards([FromQuery] string uid_user)
+        [HttpGet("get-cards/{uid_user}")]//Метод получения информации о своих картах user
+        public async Task<ActionResult<UserCardsDTO>> GetUserCards(string uid_user)
         {
             var userCards = await _userRepository.GetUserCards(uid_user);
             return Ok(userCards);

@@ -56,7 +56,7 @@ namespace bunkerServer.Controllers
             return userCards;
         }
 
-        [HttpGet("revealcard")]
+        [HttpGet("revealcard")] //метод раскрытия карты
         public async Task<ActionResult> RevealCard(string uid_user, int choice)
         {
             User user = await _userRepository.GetCurrentUser(uid_user);
@@ -87,7 +87,7 @@ namespace bunkerServer.Controllers
                     return BadRequest("Invalid choice");
             }
 
-            // Сохраняем выбора в таблице is_ope
+
             await _gameRepository.UpdateIsOpen(isOpenDTO);
 
             return Ok();
@@ -107,16 +107,13 @@ namespace bunkerServer.Controllers
             }
         }
 
-        [HttpGet("getResult")] //Метод голосования
+        [HttpGet("getResult/{uid_lobby}")] //Метод голосования
         public async Task<ActionResult<UserVoteDTO>> GetResult(string uid_lobby)
         {
-            // Ждем 30 секунд
             await Task.Delay(TimeSpan.FromSeconds(30));
 
-            // Получаем голоса по uid_lobby
             List<UserVoteDTO> votes = await _gameRepository.GetVotesByLobby(uid_lobby);
 
-            // Подсчитываем голоса
             Dictionary<string, int> voteCounts = new Dictionary<string, int>();
             foreach (var vote in votes)
             {
@@ -133,13 +130,10 @@ namespace bunkerServer.Controllers
                 }
             }
 
-            // Находим пользователя с максимальным количеством голосов
             string mostVotedUser = voteCounts.OrderByDescending(kv => kv.Value).FirstOrDefault().Key;
 
-            // Обновляем поля голосов в базе данных и удаляем пользователя с максимальным голосом
             await _gameRepository.UpdateVotesAndRemoveUser(uid_lobby, mostVotedUser);
 
-            // Возвращаем пользователя с максимальным голосом
             return votes.FirstOrDefault(vote => vote.Uid_user == mostVotedUser);
         }
 
