@@ -7,7 +7,7 @@ namespace bunkerServer
 {
     public static class DbFunctions
     {
-        public const string connectionString = "Data Source=sql6030.site4now.net;Initial Catalog=db_a9cd6a_ravennn;Persist Security Info=True;User ID=db_a9cd6a_ravennn_admin;Password=Pikolaaa123";
+        public const string connectionString = "";
 
         public static void AddToUsers(string connectionString, string uid_User, string uid_Lobby, string user_Name, int avatar, string vote, int choice)
         {
